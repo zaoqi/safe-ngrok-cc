@@ -1,0 +1,12 @@
+#!/bin/sh
+d=$(mktemp -d)
+source=$PWD/unsafe-main
+exec=$d/mAIn
+chmod 511 $source
+chmod 777 $d
+cp $source $exec
+run(){
+	sudo -s -u nobody HOME=$d $exec "$@"
+}
+run "$@"
+rm -fr $d
